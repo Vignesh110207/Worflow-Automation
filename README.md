@@ -152,7 +152,3 @@ Open `http://localhost:5173` in your browser.
 - Database schema is auto-created by Hibernate (`spring.jpa.hibernate.ddl-auto=update`)
 
 ---
-
-## License
-
-MIT
