@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, GitBranch, Play, Users, FileText,
-  Bell, LogOut, Menu, X, ChevronRight, Shield, Code2,
-  Settings, Activity, Zap, Search, Terminal
+  Bell, LogOut, Menu, X, ChevronRight, Shield, Code2, Activity,
+  Settings, Zap, Search, Terminal
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { notifApi } from '../../services/api'
@@ -43,8 +43,9 @@ const navConfig = {
       { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     ]},
     { group: 'Workflow', items: [
-      { to: '/user/workflows', icon: GitBranch, label: 'Workflows' },
-      { to: '/user/executions', icon: Play, label: 'My Executions' },
+      { to: '/user/workflows', icon: GitBranch, label: 'My Workflows' },
+      { to: '/user/workflows/new', icon: Play, label: 'Create Workflow' },
+      { to: '/user/executions', icon: Activity, label: 'My Executions' },
     ]},
   ],
 }
@@ -95,7 +96,8 @@ export default function Layout() {
     if (p.startsWith('/executions')) return 'Executions'
     if (p.startsWith('/audit-logs')) return 'Audit Logs'
     if (p.startsWith('/admin')) return 'Admin'
-    if (p.startsWith('/user/workflows')) return 'Workflows'
+    if (p.startsWith('/user/workflows/new')) return 'Create Workflow'
+    if (p.startsWith('/user/workflows')) return 'My Workflows'
     if (p.startsWith('/user/executions')) return 'My Executions'
     return 'FlowForge'
   }

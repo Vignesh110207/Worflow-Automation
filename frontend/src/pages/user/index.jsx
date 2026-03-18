@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Play, Search, GitBranch, Eye, RotateCcw, XCircle, CheckCircle, Activity } from 'lucide-react'
+import { Play, Search, GitBranch, Eye, RotateCcw, XCircle, CheckCircle, Activity, Plus } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { workflowApi, executionApi } from '../../services/api'
 import {
@@ -124,8 +124,13 @@ export function UserWorkflowList() {
   return (
     <div className="fade-up">
       <PageHeader
-        title="Available workflows"
+        title="My Workflows"
         subtitle="Browse active workflows and start executions"
+        actions={
+          <Button icon={<Plus size={13}/>} onClick={() => navigate('/user/workflows/new')}>
+            Create workflow
+          </Button>
+        }
       />
 
       <div style={{ marginBottom:14 }}>
@@ -142,8 +147,9 @@ export function UserWorkflowList() {
         emptyState={
           <EmptyState
             icon={<GitBranch size={36} color="var(--text-5)"/>}
-            title="No workflows available"
-            description="No active workflows found. Contact your administrator."
+            title="No workflows yet"
+            description="Create your first workflow or wait for an admin to activate one."
+            action={<Button icon={<Plus size={13}/>} onClick={() => navigate('/user/workflows/new')}>Create workflow</Button>}
           />
         }
       />
@@ -347,3 +353,6 @@ export function UserExecutionList() {
     </div>
   )
 }
+
+
+/* ── UserCreateWorkflow is no longer needed here — App.jsx uses WorkflowCreate directly ── */

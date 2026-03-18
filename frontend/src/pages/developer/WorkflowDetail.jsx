@@ -191,15 +191,39 @@ export default function WorkflowDetail() {
         {!schemaEdit&&fields.length>0&&<div style={{display:'flex',gap:6,flexWrap:'wrap',marginTop:10}}>{fields.map(f=><Tag key={f.name} label={`${f.name}(${f.type})${f.required?'*':''}`} color={f.required?'purple':'blue'}/>)}</div>}
       </Card>
 
-      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
-        <h3 style={{fontSize:15,fontWeight:700,display:'flex',alignItems:'center',gap:7}}><Zap size={15} color="var(--accent)"/>Steps</h3>
-        <Button size="sm" icon={<Plus size={13}/>} onClick={()=>setStepModal(true)}>Add step</Button>
-      </div>
+      {/* Steps section — prominent */}
+      <div style={{background:'#fff',border:'1.5px solid var(--grey-100)',borderRadius:16,overflow:'hidden',marginBottom:0,boxShadow:'0 2px 12px rgba(26,23,18,0.06)'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'16px 20px',borderBottom: steps.length ? '1.5px solid var(--grey-100)' : 'none',background:'rgba(255,214,0,0.04)'}}>
+          <div>
+            <h3 style={{fontSize:15,fontWeight:800,display:'flex',alignItems:'center',gap:8,color:'var(--grey-900)'}}>
+              <span style={{width:28,height:28,borderRadius:8,background:'rgba(255,214,0,0.2)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                <Zap size={14} color="#F5C000"/>
+              </span>
+              Workflow Steps
+              <span style={{fontSize:12,fontWeight:600,color:'var(--grey-400)',background:'var(--grey-100)',padding:'2px 8px',borderRadius:20}}>{steps.length}</span>
+            </h3>
+            <p style={{fontSize:12,color:'var(--grey-400)',marginTop:3,marginLeft:36}}>Define the stages this workflow executes through</p>
+          </div>
+          <Button icon={<Plus size={13}/>} onClick={()=>setStepModal(true)}>Add step</Button>
+        </div>
 
-      {steps.length===0
-        ?<Card><EmptyState icon={<Zap size={36} color="var(--text-5)"/>} title="No steps yet" description="Add steps to define workflow stages" action={<Button size="sm" icon={<Plus size={13}/>} onClick={()=>setStepModal(true)}>Add first step</Button>}/></Card>
-        :<div style={{display:'flex',flexDirection:'column',gap:8}}>{steps.map(s=><StepCard key={s.id} step={s} steps={steps} onDelete={setDelStep} onAddRule={s=>{setRuleModal(s);setRuleForm({ruleCondition:'',nextStepId:'',priority:1});setRuleErrors({})}} onDeleteRule={(r,s)=>setDelRule({rule:r,step:s})}/>)}</div>
-      }
+        {steps.length===0 ? (
+          <div style={{textAlign:'center',padding:'40px 20px'}}>
+            <div style={{width:56,height:56,borderRadius:16,background:'rgba(255,214,0,0.1)',border:'2px dashed rgba(255,214,0,0.4)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+              <Zap size={24} color="#F5C000"/>
+            </div>
+            <p style={{fontSize:15,fontWeight:700,color:'var(--grey-700)',marginBottom:6}}>No steps yet</p>
+            <p style={{fontSize:13,color:'var(--grey-400)',marginBottom:18,lineHeight:1.6,maxWidth:320,margin:'0 auto 18px'}}>
+              Steps define what happens when this workflow runs. Add tasks, approvals, and notifications.
+            </p>
+            <Button icon={<Plus size={14}/>} onClick={()=>setStepModal(true)}>Add first step</Button>
+          </div>
+        ) : (
+          <div style={{padding:'14px 16px',display:'flex',flexDirection:'column',gap:8}}>
+            {steps.map(s=><StepCard key={s.id} step={s} steps={steps} onDelete={setDelStep} onAddRule={s=>{setRuleModal(s);setRuleForm({ruleCondition:'',nextStepId:'',priority:1});setRuleErrors({})}} onDeleteRule={(r,s)=>setDelRule({rule:r,step:s})}/>)}
+          </div>
+        )}
+      </div>
 
       <Modal open={stepModal} onClose={()=>setStepModal(false)} title="Add step" subtitle="Define a stage in your workflow">
         <div style={{display:'flex',flexDirection:'column',gap:14}}>

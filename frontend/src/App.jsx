@@ -83,8 +83,9 @@ function AppRoutes() {
           <Route path="admin/stats" element={<RequireRole roles={['admin']}><AdminStats /></RequireRole>} />
 
           {/* User role */}
-          <Route path="user/workflows"  element={<UserWorkflowList />} />
-          <Route path="user/executions" element={<UserExecutionList />} />
+          <Route path="user/workflows"     element={<UserWorkflowList />} />
+          <Route path="user/workflows/new" element={<WorkflowCreate />} />
+          <Route path="user/executions"    element={<UserExecutionList />} />
 
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
