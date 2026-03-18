@@ -4,6 +4,12 @@ A full-stack workflow automation platform built with **Spring Boot** (backend) a
 
 ---
 
+## Demo
+
+🎥 [Watch Demo](https://drive.google.com/file/d/1hlmFYul0Us8G9tIwXPW2fpouArVm4P22/view?usp=drive_link)
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
